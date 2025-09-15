@@ -1,0 +1,154 @@
+.spelling-hint {
+	background: #fffde7;
+	color: #795548;
+	border-left: 4px solid #ffe082;
+	padding: 0.5rem 1rem;
+	margin-bottom: 1rem;
+	font-size: 0.98rem;
+	border-radius: 4px;
+}
+.difficulty-select {
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.difficulty-select label {
+	font-weight: bold;
+	margin-right: 0.5rem;
+}
+.difficulty-select select {
+	font-size: 1rem;
+	padding: 0.3rem 1rem;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+.best-score {
+	background: #e3f2fd;
+	color: #1565c0;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-weight: bold;
+}
+
+.feedback {
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+	min-height: 2.2em;
+	letter-spacing: 0.03em;
+}
+.feedback .correct {
+	color: #388e3c;
+	background: #e6ffe6;
+}
+.feedback .wrong {
+	color: #d32f2f;
+	background: #ffebee;
+}
+.feedback .pending {
+	color: #888;
+}
+.test-text {
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+	color: #222;
+	background: #f3f3f3;
+	padding: 1rem;
+	border-radius: 4px;
+}
+
+.typing-input {
+	width: 100%;
+	font-size: 1.1rem;
+	padding: 0.75rem;
+	margin-bottom: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.test-info {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
+	font-size: 1rem;
+}
+
+.results {
+	background: #e6ffe6;
+	color: #222;
+	padding: 1rem;
+	border-radius: 4px;
+	margin-bottom: 1rem;
+	font-size: 1.1rem;
+	text-align: center;
+}
+
+.retry-btn {
+	display: block;
+	margin: 0 auto;
+	padding: 0.5rem 1.5rem;
+	font-size: 1rem;
+	background: #ff9800;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.retry-btn:hover {
+	background: #e67c00;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.instructions {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	max-width: 500px;
+	margin: 2rem auto;
+	padding: 2rem;
+	color: #333;
+}
+
+.start-btn {
+	display: block;
+	margin: 1rem auto;
+	padding: 0.75rem 2rem;
+	font-size: 1.2rem;
+	background: #0078d7;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.start-btn:hover {
+	background: #005fa3;
+}
+
+.typing-test {
+	max-width: 600px;
+	margin: 2rem auto;
+	padding: 2rem;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 700px) {
+	.instructions, .typing-test {
+		max-width: 95vw;
+		padding: 1rem;
+	}
+	.start-btn {
+		font-size: 1rem;
+		padding: 0.5rem 1.5rem;
+	}
+}

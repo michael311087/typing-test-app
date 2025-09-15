@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Test App</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js extension/javascript.js" defer></script>
+</head>
+<body>
+</body>
+  <main>
+    <section id="instructions" class="instructions">
+      <h1>Welcome to the Typing Test!</h1>
+      <ul>
+        <li>Read the instructions carefully before starting.</li>
+        <li>Click "Start Test" to begin.</li>
+        <li>Type the displayed text as quickly and accurately as possible.</li>
+        <li>Your speed (WPM) and accuracy will be shown after the test.</li>
+      </ul>
+    </section>
+    <div class="difficulty-select">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+    <button id="startTestBtn" class="start-btn">Start Test</button>
+    <section id="typingTest" class="typing-test" style="display:none;">
+      <div id="bestScore" class="best-score" style="display:none;"></div>
+      <div id="testText" class="test-text"></div>
+      <div id="feedback" class="feedback"></div>
+      <input type="text" id="typingInput" class="typing-input" placeholder="Start typing here..." autocomplete="off" disabled aria-label="Typing input">
+      <div id="spellingHint" class="spelling-hint" aria-live="polite" style="display:none;">
+        <em>UK English tip:</em> <strong>practice</strong> is the noun, <strong>practise</strong> is the verb. Many people use "practice" for both in informal writing.
+      </div>
+      <div class="test-info">
+        <span id="timer">Time: 0s</span>
+        <span id="wpm">WPM: --</span>
+        <span id="accuracy">Accuracy: --</span>
+      </div>
+      <div id="results" class="results" style="display:none;"></div>
+      <button id="retryBtn" class="retry-btn" style="display:none;">Retry</button>
+    </section>
+  </main>
+</body>
+</body>
+</html>
