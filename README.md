@@ -1,5 +1,18 @@
 
+
 # Typing Test App
+
+## AI Tools Used
+
+To accelerate development and improve workflow, AI-powered tools such as GitHub Copilot were used throughout this project. These tools assisted with:
+
+- Generating code snippets and boilerplate
+- Refactoring and improving code quality
+- Suggesting user stories, acceptance criteria, and tasks
+- Automating repetitive tasks
+- Providing instant documentation and best practices
+
+Using AI tools helped speed up the coding process, reduce errors, and ensure a more robust and user-friendly application.
 
 ## Project Goal
 
