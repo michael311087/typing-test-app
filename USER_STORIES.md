@@ -314,4 +314,5 @@ For each user story to be considered complete:
 - **Priority**: Must Have, Should Have, Could Have, Won't Have
 - **Component**: UI, Logic, Data, Accessibility, Performance
 - **Device**: Desktop, Tablet, Mobile
-- **Browser**: Chrome, Firefox, Safari, Edge
+- **Browser**: Chrome, Firefox, Safari, Edge 
+ 
