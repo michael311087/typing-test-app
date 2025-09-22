@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .test-text { background: #f0f0f0; padding: 15px; margin: 10px 0; }
+        .feedback { background: #fff; border: 1px solid #ccc; padding: 15px; margin: 10px 0; min-height: 50px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; }
+        button { padding: 10px 20px; margin: 5px; }
+        .correct { background: green; color: white; }
+        .wrong { background: red; color: white; }
+        .pending { background: #eee; }
+        .debug { background: #fffacd; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Test Debug</h1>
+        
+        <div class="debug">
+            <strong>Debug Info:</strong>
+            <div id="debugInfo">App loading...</div>
+        </div>
+        
+        <div class="test-text" id="testText">Click Start to begin</div>
+        <div class="feedback" id="feedback">Feedback will appear here</div>
+        
+        <input type="text" id="typingInput" placeholder="Type here after starting test" disabled>
+        
+        <div>
+            <button id="startBtn">Start Test</button>
+            <button id="stopBtn" disabled>Stop Test</button>
+            <button id="retryBtn" style="display:none;">Retry</button>
+        </div>
+        
+        <div>
+            Timer: <span id="timer">0s</span> |
+            WPM: <span id="wpm">--</span> |
+            Accuracy: <span id="accuracy">--</span>
+        </div>
+    </div>
+
+    <script>
+        // Debug version with logging
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const retryBtn = document.getElementById('retryBtn');
+        const typingInput = document.getElementById('typingInput');
+        const testText = document.getElementById('testText');
+        const feedback = document.getElementById('feedback');
+        const debugInfo = document.getElementById('debugInfo');
+        
+        const testPassage = "The quick brown fox jumps over the lazy dog.";
+        let currentText = "";
+        let startTime = null;
+        let timerInterval = null;
+        let ended = false;
+        
+        function updateDebug(message) {
+            console.log(message);
+            debugInfo.innerHTML += '<br>' + message;
+        }
+        
+        function startTest() {
+            updateDebug('Starting test...');
+            currentText = testPassage;
+            testText.textContent = currentText;
+            typingInput.value = "";
+            typingInput.disabled = false;
+            typingInput.focus();
+            
+            // Update button states
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            retryBtn.style.display = 'none';
+            
+            // Reset state
+            startTime = null;
+            ended = false;
+            feedback.innerHTML = "";
+            document.getElementById('timer').textContent = "0s";
+            document.getElementById('wpm').textContent = "--";
+            document.getElementById('accuracy').textContent = "--";
+            
+            if (timerInterval) clearInterval(timerInterval);
+            updateDebug('Test started. Input enabled: ' + !typingInput.disabled);
+        }
+        
+        function updateTimer() {
+            if (!startTime) return;
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('timer').textContent = `${elapsed}s`;
+        }
+        
+        function updateFeedback() {
+            const input = typingInput.value;
+            let html = "";
+            for (let i = 0; i < currentText.length; i++) {
+                if (i < input.length) {
+                    if (input[i] === currentText[i]) {
+                        html += `<span class='correct'>${currentText[i]}</span>`;
+                    } else {
+                        html += `<span class='wrong'>${currentText[i]}</span>`;
+                    }
+                } else {
+                    html += `<span class='pending'>${currentText[i]}</span>`;
+                }
+            }
+            feedback.innerHTML = html;
+        }
+        
+        function endTest() {
+            updateDebug('Ending test...');
+            ended = true;
+            typingInput.disabled = true;
+            if (timerInterval) clearInterval(timerInterval);
+            
+            const elapsed = (Date.now() - startTime) / 1000;
+            const words = currentText.trim().split(/\s+/).length;
+            const wpm = Math.round((words / elapsed) * 60);
+            
+            let correct = 0;
+            const input = typingInput.value;
+            for (let i = 0; i < input.length; i++) {
+                if (input[i] === currentText[i]) correct++;
+            }
+            const accuracy = Math.round((correct / currentText.length) * 100);
+            
+            document.getElementById('wpm').textContent = wpm;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            
+            // Update button states
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            retryBtn.style.display = 'inline-block';
+            
+            updateDebug(`Test completed! WPM: ${wpm}, Accuracy: ${accuracy}%`);
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', startTest);
+        
+        stopBtn.addEventListener('click', function() {
+            if (!ended && startTime) {
+                endTest();
+            }
+        });
+        
+        retryBtn.addEventListener('click', function() {
+            updateDebug('Retrying test...');
+            startTest();
+        });
+        
+        typingInput.addEventListener('input', function() {
+            if (ended) return;
+            
+            if (!startTime) {
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
+                updateDebug('Timer started on first keystroke');
+            }
+            
+            updateFeedback();
+            
+            // Auto-complete when full text length is reached
+            if (typingInput.value.length >= currentText.length) {
+                updateDebug('Auto-completing test - reached full length');
+                endTest();
+            }
+        });
+        
+        // Initialize
+        updateDebug('Debug version loaded successfully');
+        updateDebug('Initial state - Input disabled: ' + typingInput.disabled);
+    </script>
+</body>
+</html>

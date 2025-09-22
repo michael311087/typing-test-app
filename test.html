@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Test</title>
+</head>
+<body>
+    <h1>Simple Typing Test</h1>
+    <div id="testText">Type this text: Hello world</div>
+    <input type="text" id="typingInput" disabled placeholder="Click start first">
+    <button id="startBtn">Start Test</button>
+    <div id="results"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startBtn = document.getElementById('startBtn');
+            const typingInput = document.getElementById('typingInput');
+            const testText = document.getElementById('testText');
+            const results = document.getElementById('results');
+            
+            let currentText = "Hello world";
+            
+            startBtn.addEventListener('click', function() {
+                console.log('Start clicked');
+                typingInput.disabled = false;
+                typingInput.focus();
+                typingInput.value = "";
+                results.innerHTML = "Test started! Type the text above.";
+            });
+            
+            typingInput.addEventListener('input', function() {
+                console.log('Input:', typingInput.value);
+                if (typingInput.value === currentText) {
+                    results.innerHTML = "Test completed!";
+                    typingInput.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

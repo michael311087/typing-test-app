@@ -1,0 +1,249 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* Global Styles */
+body {
+	font-family: 'Nunito', sans-serif;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	min-height: 100vh;
+	animation: backgroundShift 10s ease infinite;
+}
+
+@keyframes backgroundShift {
+	0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+	50% { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+}
+
+/* Header Styles */
+header h1 {
+	font-family: 'Alegreya', serif !important;
+	font-weight: 700;
+}
+
+/* Card Enhancements */
+.card {
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.95);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	transition: all 0.3s ease;
+}
+
+.card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Orange Theme Color */
+.text-orange {
+	color: #ff8400 !important;
+}
+
+.bg-orange {
+	background-color: #ff8400 !important;
+}
+
+.btn-orange {
+	background-color: #ff8400;
+	border-color: #ff8400;
+	color: white;
+}
+
+.btn-orange:hover {
+	background-color: #e6780a;
+	border-color: #e6780a;
+	color: white;
+}
+
+/* Enhanced Buttons */
+.btn {
+	font-weight: 600;
+	border-radius: 50px;
+	transition: all 0.3s ease;
+	font-family: 'Nunito', sans-serif;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-lg {
+	padding: 0.75rem 2rem;
+}
+
+/* Test Text Styling */
+#testText {
+	font-family: 'Nunito', sans-serif !important;
+	font-size: 1.1rem !important;
+	line-height: 1.8 !important;
+	border-left: 4px solid #ff8400 !important;
+	transition: all 0.3s ease;
+}
+
+#testText:hover {
+	background: #f8f9fa !important;
+	transform: translateX(5px);
+}
+
+/* Typing Feedback Styles */
+.feedback .correct {
+	background-color: #28a745;
+	color: white;
+	padding: 2px 4px;
+	border-radius: 3px;
+	animation: correctPulse 0.3s ease;
+}
+
+@keyframes correctPulse {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.1); }
+	100% { transform: scale(1); }
+}
+
+.feedback .wrong {
+	background-color: #dc3545;
+	color: white;
+	padding: 2px 4px;
+	border-radius: 3px;
+	animation: wrongShake 0.3s ease;
+}
+
+@keyframes wrongShake {
+	0%, 100% { transform: translateX(0); }
+	25% { transform: translateX(-2px); }
+	75% { transform: translateX(2px); }
+}
+
+.feedback .pending {
+	background-color: #e9ecef;
+	color: #495057;
+	padding: 2px 4px;
+	border-radius: 3px;
+}
+
+#feedback {
+	font-family: 'Nunito', sans-serif !important;
+	border-left: 4px solid #ff8400 !important;
+	min-height: 60px;
+}
+
+/* Form Controls */
+.form-control:focus,
+.form-select:focus {
+	border-color: #ff8400;
+	box-shadow: 0 0 0 0.2rem rgba(255, 132, 0, 0.25);
+}
+
+/* Input Group Styling */
+.input-group-text {
+	background-color: #ff8400;
+	border-color: #ff8400;
+	color: white;
+	font-weight: 600;
+}
+
+/* Results Enhancement */
+#results {
+	background: linear-gradient(45deg, #28a745, #20c997);
+	color: white;
+	padding: 1rem;
+	border-radius: 8px;
+	text-align: center;
+	box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+	animation: resultSlideIn 0.5s ease-out;
+}
+
+@keyframes resultSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px) scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+/* Card Header Custom Colors */
+.card-header.bg-orange {
+	background-color: #ff8400 !important;
+}
+
+/* Animation for cards appearing */
+.card {
+	animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Best Score Glow Effect */
+.card-header.bg-success {
+	animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+	from { box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); }
+	to { box-shadow: 0 0 20px rgba(40, 167, 69, 0.8); }
+}
+
+/* Session Stats Enhancement */
+.card-header.bg-info {
+	background: linear-gradient(45deg, #17a2b8, #20c997) !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+	.btn-lg {
+		padding: 0.5rem 1.5rem;
+		font-size: 1rem;
+	}
+	
+	#testText, #feedback {
+		font-size: 1rem !important;
+	}
+	
+	.card-body {
+		padding: 1rem;
+	}
+	
+	.d-flex.gap-2 {
+		flex-direction: column;
+		gap: 0.5rem !important;
+	}
+	
+	.d-flex.gap-2 .btn {
+		width: 100%;
+	}
+}
+
+/* Alert Styling */
+.alert-info {
+	border-left: 4px solid #17a2b8;
+	background-color: rgba(23, 162, 184, 0.1);
+	border-color: rgba(23, 162, 184, 0.2);
+}
+
+/* Modal Enhancements */
+.modal-content {
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.95);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Alegreya', serif;
+}
+
+/* Custom spacing utilities */
+.gap-2 {
+	gap: 0.5rem !important;
+}
