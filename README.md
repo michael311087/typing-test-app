@@ -3,6 +3,8 @@
 
 A comprehensive typing test application designed to help users improve their typing speed and accuracy, inspired by TypeRacer and built with GitHub Copilot assistance.
 
+![TypeRacer App - Multi-Device Mockup](assets/images/all-devices-black.webp)
+
 ## 🎯 Project Goal
 
 To provide a tool for users to improve their typing speed and accuracy through an engaging, accessible, and responsive typing test experience.

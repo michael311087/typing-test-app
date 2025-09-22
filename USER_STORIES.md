@@ -6,6 +6,8 @@
 **Target Users**: Anyone eager to enhance their typing skills  
 **Key Features**: Easy interface, instant feedback, progress tracking, responsive design
 
+![TypeRacer App - Completed Implementation](assets/images/all-devices-black.webp)
+
 ---
 
 ## Epic 1: Core Typing Functionality
