@@ -97,11 +97,11 @@ header h1 {
 #testText,
 .test-text-display {
 	font-family: 'Nunito', sans-serif !important;
-	font-size: 1.1rem !important;
+	font-size: 1.8rem !important;
 	line-height: 1.8 !important;
 	border-left: 4px solid #ff8400 !important;
 	transition: all 0.3s ease;
-	color: #000000 !important; /* Ensure high contrast */
+	color: #4a5568 !important; /* Softer gray, easier on the eyes */
 	background: #ffffff !important;
 }
 
@@ -109,7 +109,7 @@ header h1 {
 .test-text-display:hover {
 	background: #ffffff !important;
 	transform: translateX(5px);
-	color: #000000 !important; /* Ensure contrast on hover */
+	color: #4a5568 !important; /* Keep consistent softer color on hover */
 }
 
 /* Enhanced Contrast for Text Elements */

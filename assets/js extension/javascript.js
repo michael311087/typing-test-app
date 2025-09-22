@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Set initial button and input states
 			startBtn.disabled = false;
 			stopBtn.disabled = true;
-			retryBtn.style.display = 'none';
+			retryBtn.style.display = 'inline-block';
 			typingInput.disabled = true;
 			typingInput.value = "";
 			
