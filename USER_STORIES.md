@@ -6,7 +6,7 @@
 **Target Users**: Anyone eager to enhance their typing skills  
 **Key Features**: Easy interface, instant feedback, progress tracking, responsive design
 
-![TypeRacer App - Perfect Lighthouse Scores](assets/images/Capture.PNG)
+![TypeRacer App - Multi-Device Mockup](assets/images/all-devices-black.webp)
 
 ---
 
