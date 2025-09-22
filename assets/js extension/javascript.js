@@ -1,7 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 	const startBtn = document.getElementById('startTestBtn');
-	const stopBtn = document.getElementById('stopTestBtn');
 	const retryBtn = document.getElementById('retryBtn');
 	const typingInput = document.getElementById('typingInput');
 	const testText = document.getElementById('testText');
@@ -231,14 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				startBtn.disabled = false;
 			}
 			
-			function disableStopButton() {
-				stopBtn.disabled = true;
-			}
-			
-			function enableStopButton() {
-				stopBtn.disabled = false;
-			}
-			
 			function prepareNextTest() {
 				// Clear the input field
 				typingInput.value = "";
@@ -262,10 +253,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				// Reset timer display
 				resetDisplays();
 				
-				// Enable input field and ensure proper button states
-				typingInput.disabled = true; // Will be enabled when start is clicked
-				enableStartButton();
-				disableStopButton();
+				// Enable input field for auto-start functionality
+				typingInput.disabled = false; // Enable immediately for auto-start
+				typingInput.focus(); // Focus input for immediate typing
+				enableStartButton(); // Keep start button as backup
 				retryBtn.style.display = 'none';
 				
 				// Reset state variables
@@ -280,7 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
 								// Record start time and update button states
 								recordStartTime();
 								disableStartButton();
-								enableStopButton();
 								
 								// Get selected difficulty and random text
 								const difficulty = difficultySelect.value;
@@ -318,20 +308,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			startTest();
 		});
 		
-		// Add stop button functionality
-		stopBtn.addEventListener('click', function() {
-			if (!ended && startTime) {
-				endTest();
-			}
-		});
-
-			typingInput.addEventListener('input', function() {
+		typingInput.addEventListener('input', function() {
 				if (ended) return;
 				
-				// Start timing on first keystroke if not already started
-				if (!startTime) {
+				// Auto-start test on first keystroke if not already started
+				if (!startTime && typingInput.value.length === 1) {
+					// If no current text is loaded, start a new test
+					if (!currentText) {
+						startTest();
+					}
 					recordStartTime();
 					timerInterval = setInterval(updateTimer, 1000);
+					// Update button states for auto-start
+					disableStartButton();
 				}
 				
 				updateFeedback();
@@ -344,6 +333,14 @@ document.addEventListener('DOMContentLoaded', function() {
 							endTest();
 						}
 					}, 100);
+				}
+			});
+
+			// Add Enter key functionality to stop test
+			typingInput.addEventListener('keydown', function(e) {
+				if (e.key === 'Enter' && !ended && startTime) {
+					e.preventDefault(); // Prevent default Enter behavior
+					endTest();
 				}
 			});
 
@@ -375,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				// Record end time and update button states
 				recordEndTime();
 				enableStartButton();
-				disableStopButton();
 				
 				ended = true;
 				typingInput.disabled = true;
@@ -495,9 +491,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 			retryBtn.addEventListener('click', function() {
-				startTest();
+				// Enhanced retry functionality per challenge requirements
+				
+				// 1. Load a new sample sentence of the same difficulty level
+				const currentDifficulty = difficultySelect.value;
+				currentText = getRandomText(currentDifficulty);
+				testText.textContent = currentText;
+				
+				// 2. Clear the user input textarea and enable it
+				typingInput.value = "";
 				typingInput.disabled = false;
 				typingInput.focus();
+				
+				// 3. Reset the Results area display
+				document.getElementById('results').style.display = 'none';
+				document.getElementById('wpm').textContent = '--';
+				document.getElementById('accuracy').textContent = '--';
+				document.getElementById('timer').textContent = '0s';
+				feedback.innerHTML = "";
+				
+				// 4. Disable the retry button (will be enabled after test completion)
+				retryBtn.style.display = 'none';
+				
+				// Reset all state variables
+				ended = false;
+				startTime = null;
+				endTime = null;
+				timerStartTime = null;
+				if (timerInterval) clearInterval(timerInterval);
+				
+				// Update button states
+				enableStartButton();
+				
+				// Show/hide spelling hint based on new text
+				const spellingHint = document.getElementById('spellingHint');
+				if (/\bpractice\b|\bpractise\b/i.test(currentText)) {
+					spellingHint.style.display = 'block';
+				} else {
+					spellingHint.style.display = 'none';
+				}
 			});
 
 			// Difficulty change event listener - displays sample text immediately
@@ -585,15 +617,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Display initial sample text on page load
 			const initialDifficulty = difficultySelect.value;
 			const initialText = getRandomText(initialDifficulty);
+			currentText = initialText; // Set currentText for auto-start
 			testText.textContent = initialText;
 			document.getElementById('currentLevel').textContent = initialDifficulty.charAt(0).toUpperCase() + initialDifficulty.slice(1);
 			
-			// Set initial button and input states
+			// Set initial button and input states for auto-start
 			startBtn.disabled = false;
-			stopBtn.disabled = true;
 			retryBtn.style.display = 'inline-block';
-			typingInput.disabled = true;
+			typingInput.disabled = false; // Enable for auto-start
 			typingInput.value = "";
+			typingInput.focus(); // Focus for immediate typing
 			
 			// Initialize other state variables
 			ended = false;

@@ -42,11 +42,21 @@
         <div class="modal-body">
           <ul>
             <li>Select your difficulty level from the dropdown menu.</li>
-            <li>Click "Start Test" to begin.</li>
+            <li><strong>Start typing immediately</strong> in the input field to begin the test automatically.</li>
             <li>Type the displayed text as quickly and accurately as possible.</li>
-            <li>Your speed (WPM) and accuracy will be shown after the test.</li>
+            <li><strong>Press Enter</strong> when you want to finish the test and see your results.</li>
+            <li>Your speed (WPM) and accuracy will be calculated and displayed.</li>
+            <li>Use the <strong>Retry button</strong> to practice with a new sentence at the same difficulty level.</li>
             <li>Track your progress with session statistics and best scores.</li>
           </ul>
+          <div class="alert alert-info mt-3">
+            <strong>💡 New Features:</strong>
+            <ul class="mb-0">
+              <li>✨ Auto-start: Just begin typing to start the test</li>
+              <li>⏎ Quick finish: Press Enter to complete and see results</li>
+              <li>🔄 Smart retry: Get new content with each retry</li>
+            </ul>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Got it!</button>
@@ -87,7 +97,7 @@
             <div class="mb-3">
               <label for="typingInput" class="sr-only">Type the displayed text here</label>
               <input type="text" id="typingInput" class="form-control form-control-lg typing-input" 
-                     placeholder="Click Start Test, then type here..." 
+                     placeholder="Start typing to begin the test..." 
                      autocomplete="off"
                      aria-label="Typing input field for the typing test"
                      aria-describedby="testText feedback"
@@ -101,11 +111,8 @@
 
             <!-- Action Buttons -->
             <div class="d-flex gap-2 justify-content-center" role="toolbar" aria-label="Typing test controls">
-              <button id="startTestBtn" class="btn btn-success btn-lg" aria-describedby="start-help">
-                ▶️ Start Test
-              </button>
-              <button id="stopTestBtn" class="btn btn-warning btn-lg" disabled aria-describedby="stop-help">
-                ⏹️ Stop Test
+              <button id="startTestBtn" class="btn btn-outline-success btn-lg" aria-describedby="start-help">
+                🔄 New Test
               </button>
               <button id="retryBtn" class="btn btn-outline-warning btn-lg" aria-describedby="retry-help">
                 🔄 Retry
@@ -114,8 +121,7 @@
             
             <!-- Hidden help text for screen readers -->
             <div id="start-help" class="sr-only">Starts a new typing test with the selected difficulty level</div>
-            <div id="stop-help" class="sr-only">Stops the current typing test and shows results</div>
-            <div id="retry-help" class="sr-only">Retries the current typing test</div>
+            <div id="retry-help" class="sr-only">Retries the current typing test with new content</div>
           </div>
         </div>
       </div>

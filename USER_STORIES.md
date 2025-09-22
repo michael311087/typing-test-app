@@ -298,6 +298,117 @@
 
 ---
 
+---
+
+## Epic 6: Enhanced User Experience (Challenge Implementation)
+
+### US012: Auto-Start on Typing
+
+**As a** user  
+**I want to** have the test start automatically when I begin typing  
+**So that** I can have a more seamless testing experience without clicking buttons
+
+**Acceptance Criteria:**
+
+- [ ] Test starts automatically when user types first character
+- [ ] No need to click "Start Test" button
+- [ ] Start button can be removed from interface
+- [ ] Timer begins when first keystroke is detected
+- [ ] Sample text is displayed before typing begins
+
+**Tasks:**
+
+- [ ] Remove start button functionality
+- [ ] Implement auto-start on first keystroke
+- [ ] Update UI to remove start button
+- [ ] Update placeholder text to reflect new behavior
+
+**Priority:** Must Have  
+**Story Points:** 3  
+**Status:** In Progress
+
+---
+
+### US013: Auto-Stop on Enter Key
+
+**As a** user  
+**I want to** complete the test by pressing Enter  
+**So that** I have a natural way to finish without needing to click a button
+
+**Acceptance Criteria:**
+
+- [ ] Test stops when user presses Enter key
+- [ ] Stop button can be removed from interface  
+- [ ] Results are calculated and displayed immediately
+- [ ] Input field is disabled after Enter press
+- [ ] Works regardless of whether full text is typed
+
+**Tasks:**
+
+- [ ] Add Enter key event listener
+- [ ] Remove stop button functionality
+- [ ] Update UI to remove stop button
+- [ ] Implement immediate result calculation on Enter
+
+**Priority:** Must Have  
+**Story Points:** 2  
+**Status:** In Progress
+
+---
+
+### US014: Enhanced Retry Functionality
+
+**As a** user  
+**I want to** retry with enhanced functionality  
+**So that** I can practice effectively with new content at the same difficulty
+
+**Acceptance Criteria:**
+
+- [ ] Retry button loads a new sentence of same difficulty
+- [ ] Input textarea is cleared and re-enabled
+- [ ] Results area is reset to initial state
+- [ ] Retry button is disabled during active test
+- [ ] Retry button appears only after test completion
+
+**Tasks:**
+
+- [ ] Enhance existing retry function to load new sentences
+- [ ] Implement proper state management for retry button
+- [ ] Clear and reset all test state on retry
+- [ ] Add proper button enable/disable logic
+
+**Priority:** Should Have  
+**Story Points:** 3  
+**Status:** In Progress
+
+---
+
+### US015: Enhanced Instructions Modal
+
+**As a** user  
+**I want to** access clear instructions via a modal  
+**So that** I understand how to use the updated test interface
+
+**Acceptance Criteria:**
+
+- [x] Bootstrap modal opens when Instructions button is clicked
+- [ ] Instructions reflect new auto-start and Enter-to-finish behavior
+- [ ] Modal contains comprehensive usage information
+- [ ] Modal is accessible and follows Bootstrap patterns
+
+**Tasks:**
+
+- [x] Modal structure already implemented
+- [ ] Update modal content for new functionality
+- [ ] Ensure modal follows accessibility best practices
+- [ ] Test modal functionality across devices
+
+**Priority:** Should Have  
+**Story Points:** 1  
+**Status:** In Progress
+
+---
+
 ## Definition of Done
 
 For each user story to be considered complete:
@@ -314,5 +425,6 @@ For each user story to be considered complete:
 - **Priority**: Must Have, Should Have, Could Have, Won't Have
 - **Component**: UI, Logic, Data, Accessibility, Performance
 - **Device**: Desktop, Tablet, Mobile
-- **Browser**: Chrome, Firefox, Safari, Edge 
+- **Browser**: Chrome, Firefox, Safari, Edge
+ 
  
