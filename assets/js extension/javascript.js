@@ -347,69 +347,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			});
 
-			// Prevent cheating by blocking paste events (accessibility-aware)
-			typingInput.addEventListener('paste', function(event) {
-				const antiCheatEnabled = document.getElementById('antiCheatMode').checked;
-				if (antiCheatEnabled) {
-					event.preventDefault();
-					// Show accessible feedback
-					const originalPlaceholder = typingInput.placeholder;
-					typingInput.placeholder = "ℹ️ For fair typing practice, please type manually - No pasting allowed";
-					typingInput.setAttribute('aria-describedby', 'paste-warning');
-					
-					// Create temporary accessible announcement
-					const announcement = document.createElement('div');
-					announcement.id = 'paste-warning';
-					announcement.setAttribute('aria-live', 'polite');
-					announcement.className = 'sr-only';
-					announcement.textContent = 'Pasting is disabled for this typing test to ensure fair practice';
-					document.body.appendChild(announcement);
-					
-					setTimeout(() => {
-						typingInput.placeholder = originalPlaceholder;
-						typingInput.removeAttribute('aria-describedby');
-						if (document.getElementById('paste-warning')) {
-							document.body.removeChild(announcement);
-						}
-					}, 3000);
-				}
-			});
-
-			// Block clipboard shortcuts (Ctrl+V, Ctrl+Shift+V, etc.)
-			typingInput.addEventListener('keydown', function(event) {
-				const antiCheatEnabled = document.getElementById('antiCheatMode').checked;
-				if (!antiCheatEnabled) return; // Allow shortcuts if anti-cheat is disabled
-				
-				// Block Ctrl+V (paste)
-				if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
-					event.preventDefault();
-					const originalPlaceholder = typingInput.placeholder;
-					typingInput.placeholder = "❌ Pasting shortcuts are blocked!";
-					setTimeout(() => {
-						typingInput.placeholder = originalPlaceholder;
-					}, 2000);
-				}
-				
-				// Block Ctrl+Shift+V (paste and match style)
-				if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'V') {
-					event.preventDefault();
-				}
-			});
-
-			// Block right-click context menu on input field
-			typingInput.addEventListener('contextmenu', function(event) {
-				event.preventDefault();
-			});
-
-			// Block drag and drop
-			typingInput.addEventListener('drop', function(event) {
-				event.preventDefault();
-			});
-
-			typingInput.addEventListener('dragover', function(event) {
-				event.preventDefault();
-			});
-
 			function updateFeedback() {
 				const input = typingInput.value;
 				let html = "";

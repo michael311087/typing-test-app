@@ -30,7 +30,6 @@ Based on the Lighthouse audit results, the following optimizations have been imp
 - ✅ **Improved Color Contrast**: Enhanced button and text colors for WCAG compliance
 - ✅ **Better Focus Indicators**: Added visible focus outlines for keyboard navigation
 - ✅ **Screen Reader Support**: Added .sr-only class and aria-live announcements
-- ✅ **Accessible Paste Prevention**: Improved messaging with ARIA attributes
 
 ### 3. Best Practices & Security
 - ✅ **Content Security Policy**: Added CSP headers for XSS protection
@@ -82,18 +81,20 @@ Based on the Lighthouse audit results, the following optimizations have been imp
 ```
 
 ### JavaScript (javascript.js)
+
 ```javascript
-// Enhanced Accessible Paste Prevention
-typingInput.addEventListener('paste', function(event) {
-  event.preventDefault();
-  // Accessible feedback with ARIA
-  typingInput.setAttribute('aria-describedby', 'paste-warning');
+// Performance Analytics Enhancement
+function updateTypingMetrics() {
+  const wpm = calculateWPM(typedText, timeElapsed);
+  const accuracy = calculateAccuracy(typedText, targetText);
   
-  const announcement = document.createElement('div');
-  announcement.setAttribute('aria-live', 'polite');
-  announcement.className = 'sr-only';
-  // ... accessibility improvements
-});
+  // Real-time feedback updates
+  updateFeedbackDisplay(wpm, accuracy);
+  updateProgressIndicators();
+  
+  // Accessibility announcements
+  announceProgress(wpm, accuracy);
+}
 ```
 
 ## 🎯 Expected Lighthouse Improvements
