@@ -121,8 +121,32 @@ header h1 {
 }
 
 #testText:hover {
-	background: #f8f9fa !important;
+	background: #ffffff !important;
 	transform: translateX(5px);
+	color: #000000 !important; /* Ensure contrast on hover */
+}
+
+/* Enhanced Contrast for Text Elements */
+.text-muted {
+	color: #495057 !important; /* Darker than default Bootstrap muted */
+}
+
+.card-body {
+	color: #000000 !important; /* Ensure high contrast in cards */
+}
+
+/* Improved Input Styling with Better Contrast */
+.form-control {
+	color: #000000 !important;
+	background-color: #ffffff !important;
+	border: 2px solid #495057 !important;
+}
+
+.form-control:focus {
+	color: #000000 !important;
+	background-color: #ffffff !important;
+	border-color: #0f5132 !important;
+	box-shadow: 0 0 0 0.2rem rgba(15, 81, 50, 0.25) !important;
 }
 
 /* Typing Feedback Styles */

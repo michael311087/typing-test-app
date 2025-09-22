@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+<!DOCT  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">"PE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com https://kit.fontawesome.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>TypeRacer - Improve Your Typing Speed and Accuracy</title>
   <!-- Preload critical resources -->
@@ -28,7 +30,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h1 class="h3 mb-0" style="font-family: 'Alegreya', serif;">TypeRacer</h1>
         <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#instructionsModal">
-          <i class="fas fa-info-circle"></i> Instructions
+          📋 Instructions
         </button>
       </div>
     </div>
@@ -80,36 +82,48 @@
             </div>
 
             <!-- Typing Feedback -->
-            <div id="feedback" class="p-3 mb-3 border rounded" style="font-family: 'Nunito', sans-serif; font-size: 1.1rem; line-height: 1.8; min-height: 60px;">
+            <div id="feedback" class="p-3 mb-3 border rounded" 
+                 style="font-family: 'Nunito', sans-serif; font-size: 1.1rem; line-height: 1.8; min-height: 60px;"
+                 aria-live="polite" 
+                 aria-label="Real-time typing feedback"
+                 role="status">
             </div>
 
             <!-- Typing Input -->
             <div class="mb-3">
+              <label for="typingInput" class="sr-only">Type the displayed text here</label>
               <input type="text" id="typingInput" class="form-control form-control-lg" 
                      placeholder="Click Start Test, then type here..." 
                      autocomplete="off"
-                     aria-label="Typing input"
+                     aria-label="Typing input field for the typing test"
+                     aria-describedby="testText feedback"
+                     role="textbox"
+                     aria-required="false"
                      style="font-family: 'Nunito', sans-serif;">
             </div>
 
             <!-- Educational Hint -->
             <div id="spellingHint" class="alert alert-info" role="alert" aria-live="polite" style="display:none;">
-              <i class="fas fa-lightbulb"></i>
-              <em>UK English tip:</em> <strong>practice</strong> is the noun, <strong>practise</strong> is the verb.
+              💡 <em>UK English tip:</em> <strong>practice</strong> is the noun, <strong>practise</strong> is the verb.
             </div>
 
             <!-- Action Buttons -->
-            <div class="d-flex gap-2 justify-content-center">
-              <button id="startTestBtn" class="btn btn-success btn-lg">
-                <i class="fas fa-play"></i> Start Test
+            <div class="d-flex gap-2 justify-content-center" role="toolbar" aria-label="Typing test controls">
+              <button id="startTestBtn" class="btn btn-success btn-lg" aria-describedby="start-help">
+                ▶️ Start Test
               </button>
-              <button id="stopTestBtn" class="btn btn-warning btn-lg" disabled>
-                <i class="fas fa-stop"></i> Stop Test
+              <button id="stopTestBtn" class="btn btn-warning btn-lg" disabled aria-describedby="stop-help">
+                ⏹️ Stop Test
               </button>
-              <button id="retryBtn" class="btn btn-outline-warning btn-lg">
-                <i class="fas fa-redo"></i> Retry
+              <button id="retryBtn" class="btn btn-outline-warning btn-lg" aria-describedby="retry-help">
+                🔄 Retry
               </button>
             </div>
+            
+            <!-- Hidden help text for screen readers -->
+            <div id="start-help" class="sr-only">Starts a new typing test with the selected difficulty level</div>
+            <div id="stop-help" class="sr-only">Stops the current typing test and shows results</div>
+            <div id="retry-help" class="sr-only">Retries the current typing test</div>
           </div>
         </div>
       </div>
@@ -119,9 +133,9 @@
         <!-- Current Results -->
         <div class="card shadow mb-3">
           <div class="card-header" style="background-color: #ff8400; color: white;">
-            <h5 class="card-title mb-0">
-              <i class="fas fa-chart-line"></i> Current Results
-            </h5>
+            <h3 class="card-title mb-0">
+              📊 Current Results
+            </h3>
           </div>
           <div class="card-body">
             <div class="row text-center">
@@ -149,9 +163,9 @@
         <!-- Best Score -->
         <div id="bestScore" class="card shadow mb-3" style="display:none;">
           <div class="card-header bg-success text-white">
-            <h6 class="card-title mb-0">
-              <i class="fas fa-trophy"></i> Personal Best
-            </h6>
+            <h4 class="card-title mb-0">
+              🏆 Personal Best
+            </h4>
           </div>
           <div class="card-body text-center">
             <span class="h4 text-success" id="bestScoreValue">-- WPM</span>
@@ -161,9 +175,9 @@
         <!-- Session Statistics -->
         <div id="sessionStats" class="card shadow" style="display:none;">
           <div class="card-header bg-info text-white">
-            <h6 class="card-title mb-0">
-              <i class="fas fa-chart-bar"></i> Session Stats
-            </h6>
+            <h5 class="card-title mb-0">
+              📈 Session Stats
+            </h5>
           </div>
           <div class="card-body" id="sessionStatsContent">
           </div>
@@ -174,20 +188,7 @@
 
   <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
-  <!-- FontAwesome - Replace with actual kit code or remove if not needed -->
-  <!-- <script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script> -->
   <!-- Custom JavaScript -->
   <script src="assets/js extension/javascript.js" defer></script>
-  
-  <!-- Error Prevention Script -->
-  <script>
-    // Prevent console errors for missing FontAwesome
-    window.addEventListener('error', function(e) {
-      if (e.target.src && e.target.src.includes('fontawesome')) {
-        e.preventDefault();
-        console.warn('FontAwesome kit not configured - using fallback icons');
-      }
-    });
-  </script>
 </body>
 </html>
