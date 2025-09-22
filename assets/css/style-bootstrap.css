@@ -1,6 +1,19 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
+/* Accessibility - Screen Reader Only */
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
 /* Global Styles */
 body {
 	font-family: 'Nunito', sans-serif;
@@ -54,12 +67,14 @@ header h1 {
 	color: white;
 }
 
-/* Enhanced Buttons */
+/* Enhanced Buttons with Better Contrast */
 .btn {
 	font-weight: 600;
 	border-radius: 50px;
 	transition: all 0.3s ease;
 	font-family: 'Nunito', sans-serif;
+	/* Ensure minimum contrast ratio of 4.5:1 */
+	border: 2px solid transparent;
 }
 
 .btn:hover {
@@ -67,17 +82,42 @@ header h1 {
 	box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
+.btn:focus {
+	outline: 3px solid #005fcc;
+	outline-offset: 2px;
+}
+
 .btn-lg {
 	padding: 0.75rem 2rem;
 }
 
-/* Test Text Styling */
+/* Improved Button Contrast */
+.btn-success {
+	background-color: #0f5132 !important;
+	border-color: #0f5132 !important;
+	color: #ffffff !important;
+}
+
+.btn-warning {
+	background-color: #997404 !important;
+	border-color: #997404 !important;
+	color: #ffffff !important;
+}
+
+.btn-primary {
+	background-color: #0f5132 !important;
+	border-color: #0f5132 !important;
+}
+
+/* Test Text Styling with Better Contrast */
 #testText {
 	font-family: 'Nunito', sans-serif !important;
 	font-size: 1.1rem !important;
 	line-height: 1.8 !important;
 	border-left: 4px solid #ff8400 !important;
 	transition: all 0.3s ease;
+	color: #000000 !important; /* Ensure high contrast */
+	background: #ffffff !important;
 }
 
 #testText:hover {

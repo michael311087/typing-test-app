@@ -344,15 +344,29 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 			});
 
-			// Prevent cheating by blocking paste events
+			// Prevent cheating by blocking paste events (accessibility-aware)
 			typingInput.addEventListener('paste', function(event) {
 				event.preventDefault();
-				// Show a brief message to inform user
+				// Show accessible feedback
 				const originalPlaceholder = typingInput.placeholder;
-				typingInput.placeholder = "❌ Pasting is not allowed - Type the text manually!";
+				typingInput.placeholder = "ℹ️ For fair typing practice, please type manually - No pasting allowed";
+				typingInput.setAttribute('aria-describedby', 'paste-warning');
+				
+				// Create temporary accessible announcement
+				const announcement = document.createElement('div');
+				announcement.id = 'paste-warning';
+				announcement.setAttribute('aria-live', 'polite');
+				announcement.className = 'sr-only';
+				announcement.textContent = 'Pasting is disabled for this typing test to ensure fair practice';
+				document.body.appendChild(announcement);
+				
 				setTimeout(() => {
 					typingInput.placeholder = originalPlaceholder;
-				}, 2000);
+					typingInput.removeAttribute('aria-describedby');
+					if (document.getElementById('paste-warning')) {
+						document.body.removeChild(announcement);
+					}
+				}, 3000);
 			});
 
 			// Block clipboard shortcuts (Ctrl+V, Ctrl+Shift+V, etc.)
