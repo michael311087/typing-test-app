@@ -1,4 +1,4 @@
-# TypeRacer - User Stories
+﻿# TypeRacer - User Stories
 
 ## Project Overview
 
