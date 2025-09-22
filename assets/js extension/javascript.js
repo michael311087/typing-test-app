@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			let currentText = "";
 			let timerInterval = null;
 			let startTime = null;
+			let endTime = null;
+			let timerStartTime = null; // For the real-time timer display
 			let ended = false;
 			let bestScore = localStorage.getItem('bestWPM') ? parseInt(localStorage.getItem('bestWPM')) : null;
 			
@@ -194,8 +196,87 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 				}
 			}
+			
+			// Named functions for time recording functionality
+			function recordStartTime() {
+				startTime = new Date();
+				timerStartTime = Date.now(); // For real-time timer
+				endTime = null;
+			}
+			
+			function recordEndTime() {
+				endTime = new Date();
+			}
+			
+			function calculateTestTime() {
+				if (startTime && endTime) {
+					const timeInSeconds = (endTime - startTime) / 1000;
+					return Math.round(timeInSeconds * 100) / 100; // Round to 2 decimal places
+				}
+				return 0;
+			}
+			
+			function disableStartButton() {
+				startBtn.disabled = true;
+			}
+			
+			function enableStartButton() {
+				startBtn.disabled = false;
+			}
+			
+			function disableStopButton() {
+				stopBtn.disabled = true;
+			}
+			
+			function enableStopButton() {
+				stopBtn.disabled = false;
+			}
+			
+			function prepareNextTest() {
+				// Clear the input field
+				typingInput.value = "";
+				
+				// Generate new text for the same difficulty level
+				const difficulty = difficultySelect.value;
+				currentText = getRandomText(difficulty);
+				testText.textContent = currentText;
+				
+				// Update current level display
+				document.getElementById('currentLevel').textContent = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+				
+				// Clear feedback and hide results
+				feedback.innerHTML = "";
+				document.getElementById('results').style.display = 'none';
+				
+				// Hide spelling hint initially
+				const spellingHint = document.getElementById('spellingHint');
+				spellingHint.style.display = 'none';
+				
+				// Reset timer display
+				document.getElementById('timer').textContent = "0s";
+				document.getElementById('wpm').textContent = "--";
+				document.getElementById('accuracy').textContent = "--";
+				
+				// Enable input field and ensure proper button states
+				typingInput.disabled = true; // Will be enabled when start is clicked
+				enableStartButton();
+				disableStopButton();
+				retryBtn.style.display = 'none';
+				
+				// Reset state variables
+				ended = false;
+				startTime = null;
+				endTime = null;
+				timerStartTime = null;
+				if (timerInterval) clearInterval(timerInterval);
+			}
 
 						function startTest() {
+								// Record start time and update button states
+								recordStartTime();
+								disableStartButton();
+								enableStopButton();
+								
 								// Get selected difficulty and random text
 								const difficulty = difficultySelect.value;
 								currentText = getRandomText(difficulty);
@@ -214,10 +295,6 @@ document.addEventListener('DOMContentLoaded', function() {
 								document.getElementById('results').style.display = 'none';
 								retryBtn.style.display = 'none';
 								feedback.innerHTML = "";
-								
-								// Update button states
-								startBtn.disabled = true;
-								stopBtn.disabled = false;
 								
 								showBestScore();
 								updateSessionStats();
@@ -247,14 +324,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			typingInput.addEventListener('input', function() {
 				if (ended) return;
+				
+				// Start timing on first keystroke if not already started
 				if (!startTime) {
-					startTime = Date.now();
+					recordStartTime();
 					timerInterval = setInterval(updateTimer, 1000);
 				}
+				
 				updateFeedback();
 				
 				// End test when user has typed the full text
-				// Check both length and ensure we've reached the end
 				if (typingInput.value.length >= currentText.length) {
 					// Give a small delay to ensure the last character is processed
 					setTimeout(() => {
@@ -263,6 +342,49 @@ document.addEventListener('DOMContentLoaded', function() {
 						}
 					}, 100);
 				}
+			});
+
+			// Prevent cheating by blocking paste events
+			typingInput.addEventListener('paste', function(event) {
+				event.preventDefault();
+				// Show a brief message to inform user
+				const originalPlaceholder = typingInput.placeholder;
+				typingInput.placeholder = "❌ Pasting is not allowed - Type the text manually!";
+				setTimeout(() => {
+					typingInput.placeholder = originalPlaceholder;
+				}, 2000);
+			});
+
+			// Block clipboard shortcuts (Ctrl+V, Ctrl+Shift+V, etc.)
+			typingInput.addEventListener('keydown', function(event) {
+				// Block Ctrl+V (paste)
+				if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
+					event.preventDefault();
+					const originalPlaceholder = typingInput.placeholder;
+					typingInput.placeholder = "❌ Pasting shortcuts are blocked!";
+					setTimeout(() => {
+						typingInput.placeholder = originalPlaceholder;
+					}, 2000);
+				}
+				
+				// Block Ctrl+Shift+V (paste and match style)
+				if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'V') {
+					event.preventDefault();
+				}
+			});
+
+			// Block right-click context menu on input field
+			typingInput.addEventListener('contextmenu', function(event) {
+				event.preventDefault();
+			});
+
+			// Block drag and drop
+			typingInput.addEventListener('drop', function(event) {
+				event.preventDefault();
+			});
+
+			typingInput.addEventListener('dragover', function(event) {
+				event.preventDefault();
 			});
 
 			function updateFeedback() {
@@ -283,18 +405,25 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 		function updateTimer() {
-			if (!startTime) return;
-			const elapsed = Math.floor((Date.now() - startTime) / 1000);
+			if (!timerStartTime) return;
+			const elapsed = Math.floor((Date.now() - timerStartTime) / 1000);
 			document.getElementById('timer').textContent = `${elapsed}s`;
 		}
 
 
 			function endTest() {
+				// Record end time and update button states
+				recordEndTime();
+				enableStartButton();
+				disableStopButton();
+				
 				ended = true;
 				typingInput.disabled = true;
 				if (timerInterval) clearInterval(timerInterval);
-				const elapsed = (Date.now() - startTime) / 1000;
-				const wpm = calculateWPM(currentText, elapsed);
+				
+				const testTime = calculateTestTime();
+				const elapsed = (endTime - startTime) / 1000;
+				const wpm = calculateWPM(currentText, typingInput.value, elapsed);
 				const accuracy = calculateAccuracy(currentText, typingInput.value);
 				const difficulty = difficultySelect.value;
 				
@@ -320,6 +449,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				let resultMessage = `
 					<div class="text-center">
 						<h5 class="text-success mb-3">🎉 Test Complete!</h5>
+						<div class="alert alert-secondary mb-3 py-2">
+							<strong>Difficulty Level: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</strong>
+						</div>
 						<div class="row">
 							<div class="col-4">
 								<div class="text-muted small">WPM</div>
@@ -331,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							</div>
 							<div class="col-4">
 								<div class="text-muted small">Time</div>
-								<div class="h4 text-info">${elapsed.toFixed(1)}s</div>
+								<div class="h4 text-info">${testTime}s</div>
 							</div>
 						</div>
 				`;
@@ -362,17 +494,35 @@ document.addEventListener('DOMContentLoaded', function() {
 				document.getElementById('results').innerHTML = resultMessage;
 				document.getElementById('results').style.display = 'block';
 				
-				// Update button states
-				startBtn.disabled = false;
-				stopBtn.disabled = true;
+				// Show retry button
 				retryBtn.style.display = 'inline-block';
 				
 				updateSessionStats();
+				
+				// Automatically prepare the next test after a short delay
+				setTimeout(() => {
+					prepareNextTest();
+				}, 2000); // 2 second delay to let user see results
 			}
 
-		function calculateWPM(text, seconds) {
-			const words = text.trim().split(/\s+/).length;
-			return seconds > 0 ? Math.round((words / seconds) * 60) : 0;
+		function calculateCorrectWords(originalText, userInput) {
+			const originalWords = originalText.trim().split(/\s+/);
+			const userWords = userInput.trim().split(/\s+/);
+			let correctWords = 0;
+			
+			// Compare each word to count correctly typed words
+			for (let i = 0; i < Math.min(originalWords.length, userWords.length); i++) {
+				if (originalWords[i] === userWords[i]) {
+					correctWords++;
+				}
+			}
+			
+			return correctWords;
+		}
+
+		function calculateWPM(originalText, userInput, seconds) {
+			const correctWords = calculateCorrectWords(originalText, userInput);
+			return seconds > 0 ? Math.round((correctWords / seconds) * 60) : 0;
 		}
 
 		function calculateAccuracy(text, input) {
@@ -488,5 +638,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Initialize other state variables
 			ended = false;
 			startTime = null;
+			timerStartTime = null;
 			if (timerInterval) clearInterval(timerInterval);
 });
