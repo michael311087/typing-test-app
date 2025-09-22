@@ -33,6 +33,11 @@ header h1 {
 	font-weight: 700;
 }
 
+.header-title {
+	font-family: 'Alegreya', serif !important;
+	font-size: 1.75rem !important;
+}
+
 /* Card Enhancements */
 .card {
 	backdrop-filter: blur(10px);
@@ -44,27 +49,6 @@ header h1 {
 .card:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
-}
-
-/* Orange Theme Color */
-.text-orange {
-	color: #ff8400 !important;
-}
-
-.bg-orange {
-	background-color: #ff8400 !important;
-}
-
-.btn-orange {
-	background-color: #ff8400;
-	border-color: #ff8400;
-	color: white;
-}
-
-.btn-orange:hover {
-	background-color: #e6780a;
-	border-color: #e6780a;
-	color: white;
 }
 
 /* Enhanced Buttons with Better Contrast */
@@ -110,7 +94,8 @@ header h1 {
 }
 
 /* Test Text Styling with Better Contrast */
-#testText {
+#testText,
+.test-text-display {
 	font-family: 'Nunito', sans-serif !important;
 	font-size: 1.1rem !important;
 	line-height: 1.8 !important;
@@ -120,7 +105,8 @@ header h1 {
 	background: #ffffff !important;
 }
 
-#testText:hover {
+#testText:hover,
+.test-text-display:hover {
 	background: #ffffff !important;
 	transform: translateX(5px);
 	color: #000000 !important; /* Ensure contrast on hover */
@@ -128,7 +114,59 @@ header h1 {
 
 /* Enhanced Contrast for Text Elements */
 .text-muted {
-	color: #495057 !important; /* Darker than default Bootstrap muted */
+	color: #343a40 !important; /* Even darker for better contrast ratio */
+}
+
+/* Fix form help text contrast */
+.form-text {
+	color: #495057 !important; /* Darker than Bootstrap's default */
+}
+
+/* Ensure placeholder text has good contrast */
+::placeholder {
+	color: #6c757d !important;
+	opacity: 1 !important;
+}
+
+/* Override Bootstrap color utilities for better contrast */
+.text-primary {
+	color: #0d47a1 !important; /* Much darker blue than Bootstrap's #0d6efd */
+}
+
+.text-success {
+	color: #1b5e20 !important; /* Much darker green than Bootstrap's #198754 */
+}
+
+.text-info {
+	color: #01579b !important; /* Darker cyan */
+}
+
+.text-warning {
+	color: #e65100 !important; /* Darker orange (already used elsewhere) */
+}
+
+/* Fix outline button contrast issues */
+.btn-outline-light {
+	color: #000000 !important;
+	border-color: #495057 !important;
+}
+
+.btn-outline-light:hover {
+	color: #ffffff !important;
+	background-color: #495057 !important;
+	border-color: #495057 !important;
+}
+
+.btn-outline-warning {
+	color: #e65100 !important; /* Use our darker orange */
+	border-color: #e65100 !important;
+}
+
+/* Ensure maximum contrast for test text area */
+#testText.bg-light {
+	background-color: #ffffff !important; /* Pure white background */
+	color: #000000 !important; /* Pure black text */
+	border: 2px solid #343a40 !important; /* Dark border for definition */
 }
 
 .card-body {
@@ -185,7 +223,9 @@ header h1 {
 	border-radius: 3px;
 }
 
-#feedback {
+/* Consolidated feedback and form styling */
+#feedback,
+.feedback-display {
 	font-family: 'Nunito', sans-serif !important;
 	border-left: 4px solid #ff8400 !important;
 	min-height: 60px;
@@ -198,12 +238,19 @@ header h1 {
 	box-shadow: 0 0 0 0.2rem rgba(255, 132, 0, 0.25);
 }
 
-/* Input Group Styling */
+/* Input Group Styling - High contrast for accessibility */
 .input-group-text {
-	background-color: #ff8400;
-	border-color: #ff8400;
-	color: white;
+	background-color: #212529 !important; /* Dark background */
+	border-color: #212529 !important;
+	color: #ffffff !important; /* White text for maximum contrast */
 	font-weight: 600;
+}
+
+/* Specific fix for label.input-group-text accessibility */
+label.input-group-text {
+	background-color: #212529 !important; /* Dark background for maximum contrast */
+	color: #ffffff !important; /* Pure white text */
+	border: 2px solid #212529 !important;
 }
 
 /* Results Enhancement */
@@ -226,11 +273,6 @@ header h1 {
 		opacity: 1;
 		transform: translateY(0) scale(1);
 	}
-}
-
-/* Card Header Custom Colors */
-.card-header.bg-orange {
-	background-color: #ff8400 !important;
 }
 
 /* Animation for cards appearing */
@@ -305,6 +347,36 @@ header h1 {
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Alegreya', serif;
+}
+
+/* Enhanced component styling - moved from inline styles */
+.feedback-display {
+	font-family: 'Nunito', sans-serif !important;
+	font-size: 1.1rem !important;
+	line-height: 1.8 !important;
+	min-height: 60px;
+}
+
+.typing-input {
+	font-family: 'Nunito', sans-serif !important;
+}
+
+.spelling-hint {
+	display: none;
+}
+
+.current-results-header {
+	background-color: #e65100 !important;
+	color: white !important;
+}
+
+.results-display {
+	display: none;
+}
+
+.best-score-card,
+.session-stats-card {
+	display: none;
 }
 
 /* Custom spacing utilities */
