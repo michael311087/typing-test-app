@@ -6,7 +6,7 @@
 **Target Users**: Anyone eager to enhance their typing skills  
 **Key Features**: Easy interface, instant feedback, progress tracking, responsive design
 
-![TypeRacer App - Multi-Device Mockup](assets/js extension/all-devices-black.webp)
+![TypeRacer App - Multi-Device Mockup](assets/images/all-devices-black.webp)
 
 ---
 
@@ -310,22 +310,22 @@
 
 **Acceptance Criteria:**
 
-- [x] Test starts automatically when user types first character
-- [x] No need to click "Start Test" button (though kept as backup)
-- [x] Start button renamed to "New Test"
-- [x] Timer begins when first keystroke is detected
-- [x] Sample text is displayed before typing begins
+- [ ] Test starts automatically when user types first character
+- [ ] No need to click "Start Test" button
+- [ ] Start button can be removed from interface
+- [ ] Timer begins when first keystroke is detected
+- [ ] Sample text is displayed before typing begins
 
 **Tasks:**
 
-- [x] Remove start button dependency
-- [x] Implement auto-start on first keystroke
-- [x] Update UI to rename start button
-- [x] Update placeholder text to reflect new behavior
+- [ ] Remove start button functionality
+- [ ] Implement auto-start on first keystroke
+- [ ] Update UI to remove start button
+- [ ] Update placeholder text to reflect new behavior
 
 **Priority:** Must Have  
 **Story Points:** 3  
-**Status:** Done
+**Status:** In Progress
 
 ---
 
@@ -337,22 +337,22 @@
 
 **Acceptance Criteria:**
 
-- [x] Test stops when user presses Enter key
-- [x] Stop button removed from interface  
-- [x] Results are calculated and displayed immediately
-- [x] Input field is disabled after Enter press
-- [x] Works regardless of whether full text is typed
+- [ ] Test stops when user presses Enter key
+- [ ] Stop button can be removed from interface  
+- [ ] Results are calculated and displayed immediately
+- [ ] Input field is disabled after Enter press
+- [ ] Works regardless of whether full text is typed
 
 **Tasks:**
 
-- [x] Add Enter key event listener
-- [x] Remove stop button functionality
-- [x] Update UI to remove stop button
-- [x] Implement immediate result calculation on Enter
+- [ ] Add Enter key event listener
+- [ ] Remove stop button functionality
+- [ ] Update UI to remove stop button
+- [ ] Implement immediate result calculation on Enter
 
 **Priority:** Must Have  
 **Story Points:** 2  
-**Status:** Done
+**Status:** In Progress
 
 ---
 
@@ -364,22 +364,22 @@
 
 **Acceptance Criteria:**
 
-- [x] Retry button loads a new sentence of same difficulty
-- [x] Input textarea is cleared and re-enabled
-- [x] Results area is reset to initial state
-- [x] Retry button is disabled during active test
-- [x] Retry button appears only after test completion
+- [ ] Retry button loads a new sentence of same difficulty
+- [ ] Input textarea is cleared and re-enabled
+- [ ] Results area is reset to initial state
+- [ ] Retry button is disabled during active test
+- [ ] Retry button appears only after test completion
 
 **Tasks:**
 
-- [x] Enhance existing retry function to load new sentences
-- [x] Implement proper state management for retry button
-- [x] Clear and reset all test state on retry
-- [x] Add proper button enable/disable logic
+- [ ] Enhance existing retry function to load new sentences
+- [ ] Implement proper state management for retry button
+- [ ] Clear and reset all test state on retry
+- [ ] Add proper button enable/disable logic
 
 **Priority:** Should Have  
 **Story Points:** 3  
-**Status:** Done
+**Status:** In Progress
 
 ---
 
@@ -392,20 +392,20 @@
 **Acceptance Criteria:**
 
 - [x] Bootstrap modal opens when Instructions button is clicked
-- [x] Instructions reflect new auto-start and Enter-to-finish behavior
-- [x] Modal contains comprehensive usage information
-- [x] Modal is accessible and follows Bootstrap patterns
+- [ ] Instructions reflect new auto-start and Enter-to-finish behavior
+- [ ] Modal contains comprehensive usage information
+- [ ] Modal is accessible and follows Bootstrap patterns
 
 **Tasks:**
 
 - [x] Modal structure already implemented
-- [x] Update modal content for new functionality
-- [x] Ensure modal follows accessibility best practices
-- [x] Test modal functionality across devices
+- [ ] Update modal content for new functionality
+- [ ] Ensure modal follows accessibility best practices
+- [ ] Test modal functionality across devices
 
 **Priority:** Should Have  
 **Story Points:** 1  
-**Status:** Done
+**Status:** In Progress
 
 ---
 
