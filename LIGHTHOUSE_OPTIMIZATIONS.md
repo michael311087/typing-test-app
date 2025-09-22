@@ -15,6 +15,8 @@ Based on the Lighthouse audit results, the following optimizations have been imp
 
 **🎉 ALL LIGHTHOUSE CATEGORIES ACHIEVED PERFECT 100/100 SCORES!**
 
+![Perfect Lighthouse Scores - 100/100 Across All Categories](assets/images/Capture.PNG)
+
 ## 🔧 Optimizations Implemented
 
 ### 1. Performance Improvements
