@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Content Security Policy - Only CSP can be set via meta tag -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net; object-src 'none'; base-uri 'self'; form-action 'self';">
-  <title>TypeRacer - Improve Your Typing Speed and Accuracy</title>
-  <!-- Preload critical resources -->
+  <title>TypeRacer - Typing Speed Test</title>
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+
+  <!-- Preload critical styles -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" as="style">
   <link rel="preload" href="assets/css/style-bootstrap.css" as="style">
-  <!-- Bootstrap 5 CSS -->
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts with display=swap for performance -->
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya&family=Nunito&display=swap" rel="stylesheet">
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style-bootstrap.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="bg-primary text-white p-3">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h1 class="mb-0 header-title">TypeRacer</h1>
-        <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#instructionsModal">
-          📋 Instructions
-        </button>
-      </div>
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="mb-0">TypeRacer</h1>
+      <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#instructionsModal">📋 Instructions</button>
     </div>
   </header>
 
@@ -41,22 +41,11 @@
         </div>
         <div class="modal-body">
           <ul>
-            <li>Select your difficulty level from the dropdown menu.</li>
-            <li><strong>Start typing immediately</strong> in the input field to begin the test automatically.</li>
-            <li>Type the displayed text as quickly and accurately as possible.</li>
-            <li><strong>Press Enter</strong> when you want to finish the test and see your results.</li>
-            <li>Your speed (WPM) and accuracy will be calculated and displayed.</li>
-            <li>Use the <strong>Retry button</strong> to practice with a new sentence at the same difficulty level.</li>
-            <li>Track your progress with session statistics and best scores.</li>
+            <li>Select difficulty level.</li>
+            <li>Start typing to begin.</li>
+            <li>Press Enter to finish and see results.</li>
+            <li>Use Retry to get new content.</li>
           </ul>
-          <div class="alert alert-info mt-3">
-            <strong>💡 New Features:</strong>
-            <ul class="mb-0">
-              <li>✨ Auto-start: Just begin typing to start the test</li>
-              <li>⏎ Quick finish: Press Enter to complete and see results</li>
-              <li>🔄 Smart retry: Get new content with each retry</li>
-            </ul>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Got it!</button>
@@ -65,128 +54,65 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main class="container mt-4">
     <div class="row g-4">
-      <!-- Test Area (Left Column - 2/3 width on medium+ screens) -->
-      <div class="col-12 col-md-8">
+      <div class="col-md-8">
         <div class="card shadow">
           <div class="card-body">
-            <!-- Difficulty Selector -->
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="difficulty">Select Difficulty</label>
-              <select class="form-select" id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </div>
+            <label for="difficulty" class="form-label">Select Difficulty</label>
+            <select id="difficulty" class="form-select mb-3">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
 
-            <!-- Sample Text Display -->
-            <div id="testText" class="p-3 mb-3 border rounded bg-light test-text-display fs-4">
-            </div>
+            <div id="testText" class="p-3 mb-3 border rounded bg-light fs-4"></div>
+            <div id="feedback" class="p-3 mb-3 border rounded" aria-live="polite"></div>
 
-            <!-- Typing Feedback -->
-            <div id="feedback" class="p-3 mb-3 border rounded feedback-display" 
-                 aria-live="polite" 
-                 aria-label="Real-time typing feedback"
-                 role="status">
-            </div>
+            <input type="text" id="typingInput" class="form-control form-control-lg mb-3"
+                   placeholder="Start typing to begin..."
+                   autocomplete="off"
+                   aria-label="Typing input field">
 
-            <!-- Typing Input -->
-            <div class="mb-3">
-              <label for="typingInput" class="sr-only">Type the displayed text here</label>
-              <input type="text" id="typingInput" class="form-control form-control-lg typing-input" 
-                     placeholder="Start typing to begin the test..." 
-                     autocomplete="off"
-                     aria-label="Typing input field for the typing test"
-                     aria-describedby="testText feedback"
-                     role="textbox">
-            </div>
+            <div class="alert alert-info">💡 UK English tip: <strong>practice</strong> (noun), <strong>practise</strong> (verb)</div>
 
-            <!-- Educational Hint -->
-            <div id="spellingHint" class="alert alert-info spelling-hint" role="alert" aria-live="polite">
-              💡 <em>UK English tip:</em> <strong>practice</strong> is the noun, <strong>practise</strong> is the verb.
+            <div class="d-flex gap-2 justify-content-center">
+              <button id="startTestBtn" class="btn btn-outline-success">🔄 New Test</button>
+              <button id="retryBtn" class="btn btn-outline-warning">🔄 Retry</button>
             </div>
-
-            <!-- Action Buttons -->
-            <div class="d-flex gap-2 justify-content-center" role="toolbar" aria-label="Typing test controls">
-              <button id="startTestBtn" class="btn btn-outline-success btn-lg" aria-describedby="start-help">
-                🔄 New Test
-              </button>
-              <button id="retryBtn" class="btn btn-outline-warning btn-lg" aria-describedby="retry-help">
-                🔄 Retry
-              </button>
-            </div>
-            
-            <!-- Hidden help text for screen readers -->
-            <div id="start-help" class="sr-only">Starts a new typing test with the selected difficulty level</div>
-            <div id="retry-help" class="sr-only">Retries the current typing test with new content</div>
           </div>
         </div>
       </div>
 
-      <!-- Results Area (Right Column - 1/3 width on medium+ screens) -->
-      <div class="col-12 col-md-4">
-        <!-- Current Results -->
+      <div class="col-md-4">
         <div class="card shadow mb-3">
-          <div class="card-header current-results-header">
-            <h2 class="card-title mb-0">
-              📊 Current Results
-            </h2>
-          </div>
-          <div class="card-body">
-            <div class="row text-center">
-              <div class="col-12 mb-2">
-                <span class="text-muted">Level:</span>
-                <span id="currentLevel" class="fw-bold">-</span>
-              </div>
-              <div class="col-12 mb-2">
-                <span class="text-muted">Time:</span>
-                <span id="timer" class="fw-bold">0s</span>
-              </div>
-              <div class="col-12 mb-2">
-                <span class="text-muted">WPM:</span>
-                <span id="wpm" class="fw-bold text-primary">--</span>
-              </div>
-              <div class="col-12">
-                <span class="text-muted">Accuracy:</span>
-                <span id="accuracy" class="fw-bold text-success">--</span>
-              </div>
-            </div>
-            <div id="results" class="mt-3 results-display"></div>
-          </div>
-        </div>
-
-        <!-- Best Score -->
-        <div id="bestScore" class="card shadow mb-3 best-score-card">
-          <div class="card-header bg-success text-white">
-            <h2 class="card-title mb-0">
-              🏆 Personal Best
-            </h2>
-          </div>
+          <div class="card-header"><h2>📊 Current Results</h2></div>
           <div class="card-body text-center">
-            <span class="h4 text-success" id="bestScoreValue">-- WPM</span>
+            <p>Level: <span id="currentLevel">-</span></p>
+            <p>Time: <span id="timer">0s</span></p>
+            <p>WPM: <span id="wpm">--</span></p>
+            <p>Accuracy: <span id="accuracy">--</span></p>
           </div>
         </div>
 
-        <!-- Session Statistics -->
-        <div id="sessionStats" class="card shadow session-stats-card">
-          <div class="card-header bg-info text-white">
-            <h2 class="card-title mb-0">
-              📈 Session Stats
-            </h2>
+        <div class="card shadow mb-3">
+          <div class="card-header bg-success text-white"><h2>🏆 Personal Best</h2></div>
+          <div class="card-body text-center">
+            <span id="bestScoreValue">-- WPM</span>
           </div>
-          <div class="card-body" id="sessionStatsContent">
-          </div>
+        </div>
+
+        <div class="card shadow">
+          <div class="card-header bg-info text-white"><h2>📈 Session Stats</h2></div>
+          <div class="card-body" id="sessionStatsContent"></div>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Bootstrap 5 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
-  <!-- Custom JavaScript -->
-  <script src="assets/js extension/javascript.js" defer></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="assets/js/javascript.js" defer></script>
 </body>
 </html>
